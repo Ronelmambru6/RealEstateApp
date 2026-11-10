@@ -1,9 +1,18 @@
+using RealEstateApp.Core.Application;
+using RealEstateApp.Infrastructure.Persistence;
+using RealEstateApp.Infrastructure.Identity;
+using RealEstateApp.Infrastructure.Shared;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddApplicationLayer();
+builder.Services.AddPersistenceInfrastructure(builder.Configuration);
+builder.Services.AddSharedInfrastructure(builder.Configuration);
+builder.Services.AddIdentityInfrastructureForWebApi(builder.Configuration);
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
