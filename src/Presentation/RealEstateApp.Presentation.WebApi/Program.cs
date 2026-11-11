@@ -15,6 +15,8 @@ builder.Services.AddIdentityInfrastructureForWebApi(builder.Configuration);
     
 var app = builder.Build();
 
+await app.Services.RunIdentitySeedsAsync();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
