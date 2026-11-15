@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RealEstateApp.Core.Application.ViewModels.Admin;
 
-namespace RealEstateApp.Core.Application.Interfaces.Services
+namespace RealEstateApp.Core.Application.Interfaces.Services;
+
+public interface IAdminService
 {
-    internal interface IAdminService
-    {
-    }
+    Task<AdminDashboardViewModel> GetDashboardStatsAsync();
+    Task<List<AgentListItemViewModel>> GetAllAgentsAsync();
+    Task<bool> ToggleAgentStatusAsync(string agentId);
+    Task<bool> DeleteAgentWithCascadeAsync(string agentId);
 }

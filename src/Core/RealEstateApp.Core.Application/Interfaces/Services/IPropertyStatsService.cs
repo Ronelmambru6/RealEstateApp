@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace RealEstateApp.Core.Application.Interfaces.Services;
 
-namespace RealEstateApp.Core.Application.Interfaces.Services
+public interface IPropertyStatsService
 {
-    internal interface IPropertyStatsService
-    {
-    }
+    Task<(int available, int sold)> GetPropertyCountsAsync();
+    Task<Dictionary<string, int>> GetPropertyCountByAgentIdsAsync(IEnumerable<string> agentIds);
+    Task DeletePropertiesByAgentIdAsync(string agentId);
 }
