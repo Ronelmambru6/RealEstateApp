@@ -1,0 +1,89 @@
+﻿@model RealEstateApp.Core.Application.ViewModels.Admin.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard de Administrador";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Panel de Control - Administrador</h2>
+        <a asp-controller="Agents" asp-action="Index" class="btn btn-primary">
+            Gestionar Agentes
+        </a>
+    </div>
+
+    <!-- Sección Propiedades -->
+    <h5 class="text-muted mb-3">Resumen de Propiedades</h5>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100 border-start border-4 border-success">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-1">Propiedades Disponibles</h6>
+                    <h2 class="fw-bold text-success mb-0">@Model.AvailablePropertiesCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100 border-start border-4 border-primary">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-1">Propiedades Vendidas</h6>
+                    <h2 class="fw-bold text-primary mb-0">@Model.SoldPropertiesCount</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Usuarios por Rol y Estado -->
+    <h5 class="text-muted mb-3">Usuarios por Rol y Estado</h5>
+    <div class="row g-3">
+        <!-- Agentes -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Agentes Inmobiliarios</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Activos:</span>
+                        <span class="badge bg-success fs-6">@Model.ActiveAgentsCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Inactivos:</span>
+                        <span class="badge bg-secondary fs-6">@Model.InactiveAgentsCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clientes -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Clientes</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Activos:</span>
+                        <span class="badge bg-success fs-6">@Model.ActiveClientsCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Inactivos:</span>
+                        <span class="badge bg-secondary fs-6">@Model.InactiveClientsCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desarrolladores -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Desarrolladores</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Activos:</span>
+                        <span class="badge bg-success fs-6">@Model.ActiveDevelopersCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Inactivos:</span>
+                        <span class="badge bg-secondary fs-6">@Model.InactiveDevelopersCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -6,10 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using RealEstateApp.Core.Application.Interfaces.Services;
 using RealEstateApp.Core.Domain.Settings;
 using RealEstateApp.Infrastructure.Identity.Contexts;
 using RealEstateApp.Infrastructure.Identity.Entities;
 using RealEstateApp.Infrastructure.Identity.Seeds;
+using RealEstateApp.Infrastructure.Identity.Services;
+using System.Text;
 
 namespace RealEstateApp.Infrastructure.Identity;
 
@@ -117,5 +119,7 @@ public static class ServiceRegistration
                     configuration.GetConnectionString("IdentityConnection"),
                     m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName)));
         }
+
+        services.AddTransient<IAdminService, AdminService>();
     }
 }
