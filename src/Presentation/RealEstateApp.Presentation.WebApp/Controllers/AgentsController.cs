@@ -4,7 +4,7 @@ using RealEstateApp.Core.Application.Interfaces.Services;
 
 namespace RealEstateApp.Presentation.WebApp.Controllers;
 
-// [Authorize(Roles = "Administrador")]
+[Authorize(Roles = "Administrador")]
 public class AgentsController : Controller
 {
     private readonly IAdminService _adminService;

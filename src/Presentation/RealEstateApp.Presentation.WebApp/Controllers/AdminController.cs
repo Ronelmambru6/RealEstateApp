@@ -4,8 +4,7 @@ using RealEstateApp.Core.Application.Interfaces.Services;
 
 namespace RealEstateApp.Presentation.WebApp.Controllers;
 
-// Nota: Cuando el Login esté conectado puedes descomentar [Authorize(Roles = "Administrador")]
-// [Authorize(Roles = "Administrador")]
+[Authorize(Roles = "Administrador")]
 public class AdminController : Controller
 {
     private readonly IAdminService _adminService;
