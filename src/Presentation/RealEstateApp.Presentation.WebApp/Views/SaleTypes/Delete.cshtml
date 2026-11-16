@@ -1,0 +1,26 @@
+﻿@model RealEstateApp.Core.Application.ViewModels.Admin.CatalogItemViewModel
+@{
+    ViewData["Title"] = "Eliminar Tipo de Venta";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <h4 class="fw-bold text-danger mb-3">Confirmar Eliminación</h4>
+                    <p class="mb-4">
+                        ¿Está seguro que desea eliminar dicho tipo de venta (<strong>@Model.Name</strong>) y las propiedades con este tipo (<strong>@Model.PropertiesCount</strong>)?
+                    </p>
+
+                    <form asp-action="Delete" method="post" class="d-flex justify-content-center gap-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <a asp-action="Index" class="btn btn-secondary px-4">Cancelar</a>
+                        <button type="submit" class="btn btn-danger px-4">Aceptar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
