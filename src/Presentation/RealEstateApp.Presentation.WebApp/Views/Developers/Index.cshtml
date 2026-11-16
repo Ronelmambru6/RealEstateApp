@@ -1,0 +1,65 @@
+﻿@model List<RealEstateApp.Core.Application.ViewModels.Admin.SystemUserViewModel>
+@{
+    ViewData["Title"] = "Mantenimiento de Desarrolladores";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Mantenimiento de Desarrolladores</h2>
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">Volver al Dashboard</a>
+            <a asp-action="Create" class="btn btn-primary">+ Nuevo Desarrollador</a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Usuario</th>
+                            <th>Cédula</th>
+                            <th>Correo</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dev in Model)
+                        {
+                            <tr>
+                                <td>@dev.FirstName</td>
+                                <td>@dev.LastName</td>
+                                <td>@dev.UserName</td>
+                                <td>@dev.Cedula</td>
+                                <td>@dev.Email</td>
+                                <td class="text-center">
+                                    <span class="badge @(dev.IsActive ? "bg-success" : "bg-danger")">
+                                        @(dev.IsActive ? "Activo" : "Inactivo")
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <div class="d-inline-flex gap-2">
+                                        <a asp-action="Edit" asp-route-id="@dev.Id" class="btn btn-sm btn-outline-primary">
+                                            Editar
+                                        </a>
+                                        <form asp-action="ToggleStatus" asp-route-id="@dev.Id" method="post"
+                                              onsubmit="return confirm('¿Está seguro que desea @(dev.IsActive ? "inactivar" : "activar") a este desarrollador?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm @(dev.IsActive ? "btn-warning" : "btn-success")">
+                                                @(dev.IsActive ? "Inactivar" : "Activar")
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
