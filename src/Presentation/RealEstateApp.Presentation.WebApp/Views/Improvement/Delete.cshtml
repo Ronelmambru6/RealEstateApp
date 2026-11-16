@@ -1,0 +1,26 @@
+@model RealEstateApp.Core.Application.ViewModels.Improvement.SaveImprovementViewModel
+@{
+    ViewData["Title"] = "Eliminar mejora";
+}
+
+<div class="row justify-content-center py-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h2 class="fw-bold mb-3">Eliminar mejora</h2>
+                <p>
+                    ¿Está seguro de que desea eliminar la mejora <strong>@Model.Name</strong>?
+                </p>
+                <div class="alert alert-warning">
+                    Se quitará esta mejora de todas las propiedades que la tengan asignada. Las propiedades no se eliminarán.
+                </div>
+
+                <form asp-action="DeleteConfirmed" method="post" class="d-flex gap-2">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

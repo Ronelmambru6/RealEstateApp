@@ -17,6 +17,7 @@ public static class ServiceRegistration
         #endregion
 
         #region Módulos Dev B (Catálogos, Favoritos, Chat)
+        services.AddTransient<IImprovementService, ImprovementService>();
         #endregion
     }
 }
