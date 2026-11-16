@@ -32,6 +32,8 @@ public static class ServiceRegistration
         .AddEntityFrameworkStores<IdentityContext>()
         .AddDefaultTokenProviders();
 
+        services.AddTransient<IAccountService, AccountService>();
+
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/Account/Login";

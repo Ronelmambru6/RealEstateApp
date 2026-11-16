@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Confirmar cuenta";
+    var succeeded = ViewData["Succeeded"] as bool? ?? false;
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-md-6 text-center">
+        <div class="alert @(succeeded ? "alert-success" : "alert-danger")">
+            @ViewData["Message"]
+        </div>
+        <a asp-action="Login" class="btn btn-primary">Ir a iniciar sesión</a>
+    </div>
+</div>
