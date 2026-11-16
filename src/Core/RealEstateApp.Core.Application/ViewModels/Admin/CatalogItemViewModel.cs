@@ -1,0 +1,9 @@
+﻿namespace RealEstateApp.Core.Application.ViewModels.Admin;
+
+public class CatalogItemViewModel
+{
+    public int Id { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
+    public int PropertiesCount { get; set; }
+}

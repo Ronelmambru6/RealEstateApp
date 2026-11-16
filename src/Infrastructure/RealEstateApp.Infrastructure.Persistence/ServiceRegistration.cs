@@ -28,7 +28,9 @@ public static class ServiceRegistration
 
         // Repositorio genérico (Issue #3)
         services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddTransient<IPropertyStatsService, PropertyStatsService>();
 
         services.AddTransient<IPropertyStatsService, PropertyStatsService>();
+        services.AddTransient<ICatalogMaintenanceService, CatalogMaintenanceService>();
     }
 }
