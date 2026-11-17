@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\RealEstateApp.Core.Domain\RealEstateApp.Core.Domain.csproj" />
     <ProjectReference Include="..\..\Core\RealEstateApp.Core.Application\RealEstateApp.Core.Application.csproj" />
+    <ProjectReference Include="..\RealEstateApp.Infrastructure.Identity\RealEstateApp.Infrastructure.Identity.csproj" />
   </ItemGroup>
 
 </Project>

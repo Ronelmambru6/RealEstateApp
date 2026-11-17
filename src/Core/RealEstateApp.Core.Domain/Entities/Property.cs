@@ -6,7 +6,7 @@ namespace RealEstateApp.Core.Domain.Entities;
 public class Property : BaseEntity
 {
     public required string Code { get; set; } // Código único de 6 dígitos
-    public decimal Price { get; set; }        // Expresado en DOP
+    public double Price { get; set; }        // Expresado en DOP
     public double SizeInMeters { get; set; }  // Tamaño en metros
     public int Bedrooms { get; set; }
     public int Bathrooms { get; set; }
