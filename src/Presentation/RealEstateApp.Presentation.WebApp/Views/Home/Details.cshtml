@@ -99,6 +99,13 @@
                 </ul>
                 <a href="mailto:@Model.AgentEmail" class="btn btn-primary w-100">Contactar Agente</a>
                 <a asp-controller="PublicAgent" asp-action="Properties" asp-route-id="@Model.AgentId" class="btn btn-outline-primary w-100 mt-2">Ver más propiedades del agente</a>
+                
+                @if (User.IsInRole("Cliente"))
+                {
+                    <a asp-controller="Offer" asp-action="ClientOffers" asp-route-propertyId="@Model.Id" class="btn btn-primary w-100 mt-3">
+                        💰 Realizar / Ver Mis Ofertas
+                    </a>
+                }
             </div>
         </div>
     </div>
