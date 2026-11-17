@@ -1,0 +1,47 @@
+@model RealEstateApp.Core.Application.ViewModels.Home.FilterPropertyViewModel
+
+<!-- Formulario de filtros de propiedades (mismos filtros del Home). Si trae AgentId, filtra por ese agente. -->
+<div class="card border-0 shadow-sm mb-4 bg-light">
+    <div class="card-body">
+        <form method="get" asp-controller="PublicAgent" asp-action="Properties" asp-route-id="@Model.AgentId">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Código de Propiedad</label>
+                    <input asp-for="PropertyCode" class="form-control" placeholder="Ej: 123456" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Tipo de Propiedad</label>
+                    <select asp-for="PropertyTypeId" asp-items="Model.PropertyTypes" class="form-select">
+                        <option value="">-- Todos los tipos --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Tipo de Venta</label>
+                    <select asp-for="SaleTypeId" asp-items="Model.SaleTypes" class="form-select">
+                        <option value="">-- Todos los tipos --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Habitaciones</label>
+                    <input asp-for="Bedrooms" type="number" class="form-control" min="1" placeholder="Mínimo" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Baños</label>
+                    <input asp-for="Bathrooms" type="number" class="form-control" min="1" placeholder="Mínimo" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Precio Mínimo (DOP)</label>
+                    <input asp-for="MinPrice" type="number" step="1000" class="form-control" placeholder="RD$ 0" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Precio Máximo (DOP)</label>
+                    <input asp-for="MaxPrice" type="number" step="1000" class="form-control" placeholder="RD$ Sin límite" />
+                </div>
+                <div class="col-md-3 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                    <a asp-controller="PublicAgent" asp-action="Properties" asp-route-id="@Model.AgentId" class="btn btn-outline-secondary">Limpiar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

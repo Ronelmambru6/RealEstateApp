@@ -11,6 +11,7 @@ public class FilterPropertyViewModel
     public int? Bathrooms { get; set; }
     public double? MinPrice { get; set; }
     public double? MaxPrice { get; set; }
+    public string? AgentId { get; set; } // Opcional: limita el listado a las propiedades de un agente
 
     public List<HomePropertyViewModel> Properties { get; set; } = new();
     public SelectList? PropertyTypes { get; set; }

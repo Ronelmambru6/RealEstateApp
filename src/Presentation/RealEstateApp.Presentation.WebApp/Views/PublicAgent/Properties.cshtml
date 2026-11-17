@@ -1,0 +1,56 @@
+@model RealEstateApp.Core.Application.ViewModels.PublicAgent.AgentPropertiesViewModel
+@{
+    ViewData["Title"] = $"Propiedades de {Model.Agent.FirstName} {Model.Agent.LastName}";
+}
+
+<div class="container py-4">
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3">← Volver a agentes</a>
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <img src="@(string.IsNullOrEmpty(Model.Agent.PhotoUrl) ? "/images/default-avatar.png" : Model.Agent.PhotoUrl)"
+             class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;" alt="Foto del agente" />
+        <div>
+            <h2 class="fw-bold mb-0">@Model.Agent.FirstName @Model.Agent.LastName</h2>
+            <span class="text-muted small">📧 @Model.Agent.Email · 📞 @(string.IsNullOrEmpty(Model.Agent.PhoneNumber) ? "No disponible" : Model.Agent.PhoneNumber)</span>
+        </div>
+    </div>
+
+    <partial name="_PropertyFilters" model="Model.Filter" />
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @if (Model.Filter.Properties.Count == 0)
+        {
+            <div class="col-12 text-center py-5">
+                <h5 class="text-muted">Este agente no tiene propiedades disponibles con los filtros seleccionados.</h5>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.Filter.Properties)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="@(string.IsNullOrEmpty(item.MainImageUrl) ? "/images/default-property.jpg" : item.MainImageUrl)"
+                             class="card-img-top object-fit-cover" style="height: 200px;" alt="Imagen de propiedad">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary">@item.PropertyTypeName</span>
+                                <span class="badge bg-success">@item.SaleTypeName</span>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">RD$ @item.Price.ToString("N0")</h5>
+                            <p class="text-muted small mb-2">Código: <strong>@item.Code</strong></p>
+                            <div class="d-flex justify-content-between text-muted small border-top pt-2">
+                                <span>🛏️ @item.Bedrooms Hab.</span>
+                                <span>🛁 @item.Bathrooms Baños</span>
+                                <span>📐 @item.Fläche m²</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary w-100">Ver Detalle</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

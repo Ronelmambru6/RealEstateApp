@@ -98,6 +98,7 @@
                     <li class="mb-2">📞 <strong>Teléfono:</strong> @(string.IsNullOrEmpty(Model.AgentPhoneNumber) ? "No disponible" : Model.AgentPhoneNumber)</li>
                 </ul>
                 <a href="mailto:@Model.AgentEmail" class="btn btn-primary w-100">Contactar Agente</a>
+                <a asp-controller="PublicAgent" asp-action="Properties" asp-route-id="@Model.AgentId" class="btn btn-outline-primary w-100 mt-2">Ver más propiedades del agente</a>
             </div>
         </div>
     </div>

@@ -28,6 +28,12 @@ public class HomeService : IHomeService
             .Where(p => p.Status == PropertyStatus.Available) // Solo propiedades Disponibles
             .AsQueryable();
 
+        // Filtro por Agente (módulo público de agentes)
+        if (!string.IsNullOrWhiteSpace(filter.AgentId))
+        {
+            query = query.Where(p => p.AgentId == filter.AgentId);
+        }
+
         // Búsqueda por código exacto o parcial
         if (!string.IsNullOrWhiteSpace(filter.PropertyCode))
         {
