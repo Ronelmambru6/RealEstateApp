@@ -1,0 +1,95 @@
+@model RealEstateApp.Core.Application.ViewModels.Home.FilterPropertyViewModel
+@{
+    ViewData["Title"] = "Mis propiedades";
+}
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">Mis propiedades</h1>
+        <p class="text-muted">Tus propiedades favoritas que siguen disponibles.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4 bg-light">
+        <div class="card-body">
+            <form method="get" asp-controller="Favorite" asp-action="Index">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Código de Propiedad</label>
+                        <input asp-for="PropertyCode" class="form-control" placeholder="Ej: 123456" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Tipo de Propiedad</label>
+                        <select asp-for="PropertyTypeId" asp-items="Model.PropertyTypes" class="form-select">
+                            <option value="">-- Todos los tipos --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Tipo de Venta</label>
+                        <select asp-for="SaleTypeId" asp-items="Model.SaleTypes" class="form-select">
+                            <option value="">-- Todos los tipos --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Habitaciones</label>
+                        <input asp-for="Bedrooms" type="number" class="form-control" min="1" placeholder="Mínimo" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Baños</label>
+                        <input asp-for="Bathrooms" type="number" class="form-control" min="1" placeholder="Mínimo" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Precio Mínimo (DOP)</label>
+                        <input asp-for="MinPrice" type="number" step="1000" class="form-control" placeholder="RD$ 0" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Precio Máximo (DOP)</label>
+                        <input asp-for="MaxPrice" type="number" step="1000" class="form-control" placeholder="RD$ Sin límite" />
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end gap-2">
+                        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @if (Model.Properties.Count == 0)
+        {
+            <div class="col-12 text-center py-5">
+                <h5 class="text-muted">No tienes propiedades favoritas disponibles con los filtros seleccionados.</h5>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Explorar propiedades</a>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.Properties)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="@(string.IsNullOrEmpty(item.MainImageUrl) ? "/images/default-property.jpg" : item.MainImageUrl)"
+                             class="card-img-top object-fit-cover" style="height: 200px;" alt="Imagen de propiedad">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary">@item.PropertyTypeName</span>
+                                <span class="badge bg-success">@item.SaleTypeName</span>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">RD$ @item.Price.ToString("N0")</h5>
+                            <p class="text-muted small mb-2">Código: <strong>@item.Code</strong></p>
+                            <div class="d-flex justify-content-between text-muted small border-top pt-2">
+                                <span>🛏️ @item.Bedrooms Hab.</span>
+                                <span>🛁 @item.Bathrooms Baños</span>
+                                <span>📐 @item.Fläche m²</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary w-100">Ver Detalle</a>
+                            <partial name="_FavoriteButton" model="new RealEstateApp.Core.Application.ViewModels.Favorite.FavoriteButtonViewModel { PropertyId = item.Id, IsFavorite = true }" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

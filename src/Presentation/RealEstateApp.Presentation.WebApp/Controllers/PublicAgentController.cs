@@ -46,6 +46,7 @@ public class PublicAgentController : Controller
         var saleTypes = await _catalogService.GetAllSaleTypesAsync();
 
         filter.AgentId = agent.Id;
+        filter.FavoriteOfClientId = null;
         filter.PropertyTypes = new SelectList(propertyTypes, "Id", "Name", filter.PropertyTypeId);
         filter.SaleTypes = new SelectList(saleTypes, "Id", "Name", filter.SaleTypeId);
         filter.Properties = await _homeService.GetFilteredPropertiesAsync(filter);

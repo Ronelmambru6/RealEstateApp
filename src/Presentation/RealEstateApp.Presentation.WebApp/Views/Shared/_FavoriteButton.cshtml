@@ -1,0 +1,9 @@
+@model RealEstateApp.Core.Application.ViewModels.Favorite.FavoriteButtonViewModel
+
+<form asp-controller="Favorite" asp-action="Toggle" method="post" class="mt-2">
+    <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+    <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
+    <button type="submit" class="btn btn-sm w-100 @(Model.IsFavorite ? "btn-danger" : "btn-outline-danger")">
+        @(Model.IsFavorite ? "♥ Quitar de favoritas" : "♡ Marcar como favorita")
+    </button>
+</form>

@@ -11,6 +11,8 @@ public class FilterPropertyViewModel
     public int? Bathrooms { get; set; }
     public double? MinPrice { get; set; }
     public double? MaxPrice { get; set; }
+    public string? FavoriteOfClientId { get; set; } // Opcional: solo propiedades favoritas de ese cliente
+    public HashSet<int> FavoriteIds { get; set; } = new(); // Ids favoritos del cliente actual (para marcar el corazón)
     public string? AgentId { get; set; } // Opcional: limita el listado a las propiedades de un agente
 
     public List<HomePropertyViewModel> Properties { get; set; } = new();
