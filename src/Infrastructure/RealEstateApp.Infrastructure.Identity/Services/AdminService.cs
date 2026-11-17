@@ -99,7 +99,7 @@ public class AdminService : IAdminService
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 UserName = u.UserName ?? string.Empty,
-                Cedula = u.Cedula ?? string.Empty,
+                Cedula = u.NationalId ?? string.Empty,
                 Email = u.Email ?? string.Empty,
                 IsActive = u.IsActive,
                 Role = role.ToString()
@@ -119,7 +119,7 @@ public class AdminService : IAdminService
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Cedula = user.Cedula ?? string.Empty,
+            Cedula = user.NationalId ?? string.Empty,
             Email = user.Email ?? string.Empty,
             UserName = user.UserName ?? string.Empty,
             Role = roles.FirstOrDefault() ?? string.Empty
@@ -139,7 +139,7 @@ public class AdminService : IAdminService
             return (false, "El nombre de usuario ya está en uso.");
 
         // 3. Validar cédula única
-        var existingCedula = await _userManager.Users.AnyAsync(u => u.Cedula == vm.Cedula);
+        var existingCedula = await _userManager.Users.AnyAsync(u => u.NationalId == vm.Cedula);
         if (existingCedula)
             return (false, "La cédula ingresada ya pertenece a otro usuario en el sistema.");
 
@@ -147,7 +147,7 @@ public class AdminService : IAdminService
         {
             FirstName = vm.FirstName.Trim(),
             LastName = vm.LastName.Trim(),
-            Cedula = vm.Cedula.Trim(),
+            NationalId = vm.Cedula.Trim(),
             Email = vm.Email.Trim(),
             UserName = vm.UserName.Trim(),
             EmailConfirmed = true,
@@ -186,13 +186,13 @@ public class AdminService : IAdminService
             return (false, "El nombre de usuario ya está en uso por otra cuenta.");
 
         // 3. Validar cédula única (excluyendo al usuario actual)
-        var existingCedula = await _userManager.Users.AnyAsync(u => u.Cedula == vm.Cedula && u.Id != user.Id);
+        var existingCedula = await _userManager.Users.AnyAsync(u => u.NationalId == vm.Cedula && u.Id != user.Id);
         if (existingCedula)
             return (false, "La cédula ingresada ya pertenece a otro usuario.");
 
         user.FirstName = vm.FirstName.Trim();
         user.LastName = vm.LastName.Trim();
-        user.Cedula = vm.Cedula.Trim();
+        user.NationalId = vm.Cedula.Trim();
         user.Email = vm.Email.Trim();
         user.UserName = vm.UserName.Trim();
 

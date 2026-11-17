@@ -4,9 +4,9 @@ namespace RealEstateApp.Infrastructure.Identity.Entities;
 
 public class ApplicationUser : IdentityUser
 {
-    public required string FirstName { get; set; }
-    public required string LastName { get; set; }
-    public string? Cedula { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string NationalId { get; set; } = string.Empty;
     public string? PhotoUrl { get; set; }
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; }
 }
