@@ -1,0 +1,72 @@
+﻿@model List<RealEstateApp.Core.Application.ViewModels.Agent.AgentPropertyViewModel>
+@{
+    ViewData["Title"] = "Panel del Agente - Mis Propiedades";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Mis Propiedades</h2>
+            <p class="text-muted">Gestiona el catálogo de propiedades que has publicado.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Profile" class="btn btn-outline-primary">Mi Perfil</a>
+            <!-- Aquí irá el enlace a Crear Propiedad de la siguiente issue -->
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @if (Model.Count == 0)
+        {
+            <div class="col-12 text-center py-5">
+                <h5 class="text-muted">Aún no tienes propiedades registradas en el sistema.</h5>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <img src="@(string.IsNullOrEmpty(item.MainImageUrl) ? "/images/default-property.jpg" : item.MainImageUrl)"
+                                 class="card-img-top object-fit-cover" style="height: 200px;" alt="Propiedad">
+                            <!-- Etiqueta Visual de Estado -->
+                            <div class="position-absolute top-0 end-0 m-2">
+                                @if (item.IsAvailable)
+                                {
+                                    <span class="badge bg-success shadow-sm">Disponible</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger shadow-sm">Vendida</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary">@item.PropertyTypeName</span>
+                                <span class="badge bg-secondary">@item.SaleTypeName</span>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">RD$ @item.Price.ToString("N0")</h5>
+                            <p class="text-muted small mb-2">Código: <strong>@item.Code</strong></p>
+                            <div class="d-flex justify-content-between text-muted small border-top pt-2">
+                                <span>🛏️ @item.Bedrooms Hab.</span>
+                                <span>🛁 @item.Bathrooms Baños</span>
+                                <span>📐 @item.SizeInMeters m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
