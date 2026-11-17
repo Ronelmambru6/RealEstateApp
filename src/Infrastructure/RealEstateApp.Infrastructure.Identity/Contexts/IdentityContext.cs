@@ -20,7 +20,7 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
         builder.Entity<ApplicationUser>(entity =>
         {
             entity.ToTable(name: "Users");
-            entity.HasIndex(u => u.Cedula).IsUnique().HasFilter("[Cedula] IS NOT NULL");
+            entity.HasIndex(u => u.NationalId).IsUnique().HasFilter("[Cedula] IS NOT NULL");
         });
 
         builder.Entity<IdentityRole>(entity => entity.ToTable(name: "Roles"));
