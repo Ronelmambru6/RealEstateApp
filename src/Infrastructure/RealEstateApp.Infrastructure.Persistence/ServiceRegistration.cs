@@ -30,8 +30,12 @@ public static class ServiceRegistration
         services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddTransient<IPropertyStatsService, PropertyStatsService>();
 
+        services.AddTransient<IPropertyManagementService, PropertyManagementService>();
         services.AddTransient<IPropertyStatsService, PropertyStatsService>();
         services.AddTransient<ICatalogMaintenanceService, CatalogMaintenanceService>();
         services.AddTransient<IHomeService, HomeService>();
+
+        services.AddTransient<IAgentDashboardService, AgentDashboardService>();
+        services.AddTransient<IPropertyManagementService, PropertyManagementService>();
     }
 }

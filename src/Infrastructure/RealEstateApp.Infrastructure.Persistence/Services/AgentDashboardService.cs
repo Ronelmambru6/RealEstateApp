@@ -6,7 +6,7 @@ using RealEstateApp.Core.Domain.Enums;
 using RealEstateApp.Infrastructure.Identity.Entities;
 using RealEstateApp.Infrastructure.Persistence.Contexts;
 
-namespace RealEstateApp.Infrastructure.Identity.Services;
+namespace RealEstateApp.Infrastructure.Persistence.Services;
 
 public class AgentDashboardService : IAgentDashboardService
 {
