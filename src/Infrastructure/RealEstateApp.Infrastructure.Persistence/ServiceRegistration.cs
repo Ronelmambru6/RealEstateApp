@@ -39,6 +39,7 @@ public static class ServiceRegistration
         services.AddTransient<IAgentDashboardService, AgentDashboardService>();
         services.AddTransient<IPropertyManagementService, PropertyManagementService>();
         services.AddTransient<IOfferService, OfferService>();
+        services.AddTransient<IApiCatalogService, ApiCatalogService>();
     }
     
 }
