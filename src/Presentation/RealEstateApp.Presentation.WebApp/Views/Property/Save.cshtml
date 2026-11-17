@@ -1,0 +1,119 @@
+﻿@model RealEstateApp.Core.Application.ViewModels.Property.SavePropertyViewModel
+@{
+    bool isEdit = Model.Id != 0;
+    ViewData["Title"] = isEdit ? "Editar Propiedad" : "Crear Propiedad";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">@ViewData["Title"]</h4>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <form asp-action="@(isEdit ? "Edit" : "Create")" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="PropertyTypeId" class="form-label"></label>
+                                <select asp-for="PropertyTypeId" asp-items="Model.PropertyTypes" class="form-select">
+                                    <option value="">-- Seleccione tipo --</option>
+                                </select>
+                                <span asp-validation-for="PropertyTypeId" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SaleTypeId" class="form-label"></label>
+                                <select asp-for="SaleTypeId" asp-items="Model.SaleTypes" class="form-select">
+                                    <option value="">-- Seleccione venta --</option>
+                                </select>
+                                <span asp-validation-for="SaleTypeId" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Price" class="form-label"></label>
+                                <input asp-for="Price" type="number" step="1000" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Bedrooms" class="form-label"></label>
+                                <input asp-for="Bedrooms" type="number" class="form-control" />
+                                <span asp-validation-for="Bedrooms" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Bathrooms" class="form-label"></label>
+                                <input asp-for="Bathrooms" type="number" class="form-control" />
+                                <span asp-validation-for="Bathrooms" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SizeInMeters" class="form-label"></label>
+                                <input asp-for="SizeInMeters" type="number" class="form-control" />
+                                <span asp-validation-for="SizeInMeters" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label asp-for="Description" class="form-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Description" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Carga de imágenes -->
+                            <div class="col-md-12">
+                                <label asp-for="ImageFiles" class="form-label"></label>
+                                <input asp-for="ImageFiles" type="file" class="form-control" multiple accept="image/*" />
+                                <small class="text-muted">Puedes seleccionar entre 1 y 4 imágenes simultáneamente.</small>
+                                <span asp-validation-for="ImageFiles" class="text-danger small"></span>
+                            </div>
+
+                            @if (isEdit && Model.ExistingImageUrls != null && Model.ExistingImageUrls.Count > 0)
+                            {
+                                <div class="col-md-12">
+                                    <label class="form-label">Imágenes Actuales:</label>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        @foreach (var img in Model.ExistingImageUrls)
+                                        {
+                                            <img src="@img" class="rounded shadow-sm object-fit-cover" style="width: 80px; height: 80px;" alt="Imagen" />
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Checkboxes de Mejoras -->
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Mejoras de la Propiedad</label>
+                                <div class="row row-cols-2 row-cols-md-3 g-2">
+                                    @if (Model.ImprovementsList != null)
+                                    {
+                                        @for (int i = 0; i < Model.ImprovementsList.Count; i++)
+                                        {
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input type="hidden" name="ImprovementsList[@i].Value" value="@Model.ImprovementsList[i].Value" />
+                                                    <input type="hidden" name="ImprovementsList[@i].Text" value="@Model.ImprovementsList[i].Text" />
+                                                    <input class="form-check-input" type="checkbox" name="ImprovementIds" value="@Model.ImprovementsList[i].Value"
+                                                           id="imp_@i" @(Model.ImprovementsList[i].Selected ? "checked" : "") />
+                                                    <label class="form-check-label" for="imp_@i">
+                                                        @Model.ImprovementsList[i].Text
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">@(isEdit ? "Guardar Cambios" : "Crear Propiedad")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
