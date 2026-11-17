@@ -34,6 +34,12 @@ public class HomeService : IHomeService
             query = query.Where(p => p.AgentId == filter.AgentId);
         }
 
+        // Filtro por favoritas de un cliente (Mis Propiedades)
+        if (!string.IsNullOrWhiteSpace(filter.FavoriteOfClientId))
+        {
+            query = query.Where(p => p.FavoriteProperties.Any(f => f.ClientId == filter.FavoriteOfClientId));
+        }
+
         // Búsqueda por código exacto o parcial
         if (!string.IsNullOrWhiteSpace(filter.PropertyCode))
         {

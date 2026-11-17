@@ -86,6 +86,10 @@
                         </div>
                         <div class="card-footer bg-white border-0 pb-3">
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary w-100">Ver Detalle</a>
+                            @if (User.IsInRole("Cliente"))
+                            {
+                                <partial name="_FavoriteButton" model="new RealEstateApp.Core.Application.ViewModels.Favorite.FavoriteButtonViewModel { PropertyId = item.Id, IsFavorite = Model.FavoriteIds.Contains(item.Id) }" />
+                            }
                         </div>
                     </div>
                 </div>
