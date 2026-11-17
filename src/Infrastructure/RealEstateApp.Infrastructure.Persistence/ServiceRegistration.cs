@@ -32,5 +32,6 @@ public static class ServiceRegistration
 
         services.AddTransient<IPropertyStatsService, PropertyStatsService>();
         services.AddTransient<ICatalogMaintenanceService, CatalogMaintenanceService>();
+        services.AddTransient<IHomeService, HomeService>();
     }
 }

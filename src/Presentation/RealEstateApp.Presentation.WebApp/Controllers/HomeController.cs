@@ -1,31 +1,39 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using RealEstateApp.Presentation.WebApp.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RealEstateApp.Core.Application.Interfaces.Services;
+using RealEstateApp.Core.Application.ViewModels.Home;
 
 namespace RealEstateApp.Presentation.WebApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IHomeService _homeService;
+    private readonly ICatalogMaintenanceService _catalogService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IHomeService homeService, ICatalogMaintenanceService catalogService)
     {
-        _logger = logger;
+        _homeService = homeService;
+        _catalogService = catalogService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index(FilterPropertyViewModel filter)
     {
-        return View();
+        var propertyTypes = await _catalogService.GetAllPropertyTypesAsync();
+        var saleTypes = await _catalogService.GetAllSaleTypesAsync();
+
+        filter.PropertyTypes = new SelectList(propertyTypes, "Id", "Name", filter.PropertyTypeId);
+        filter.SaleTypes = new SelectList(saleTypes, "Id", "Name", filter.SaleTypeId);
+
+        filter.Properties = await _homeService.GetFilteredPropertiesAsync(filter);
+
+        return View(filter);
     }
 
-    public IActionResult Privacy()
+    public async Task<IActionResult> Details(int id)
     {
-        return View();
-    }
+        var propertyDetail = await _homeService.GetPropertyDetailByIdAsync(id);
+        if (propertyDetail == null) return NotFound();
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(propertyDetail);
     }
 }
