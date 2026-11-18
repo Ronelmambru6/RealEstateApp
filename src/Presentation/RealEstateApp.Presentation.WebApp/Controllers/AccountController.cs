@@ -146,7 +146,12 @@ public class AccountController : Controller
             return RedirectToAction("Index", "Admin");
         }
 
-        // Agente y Cliente: por ahora su home es el Home público (se ajustará en sus propios issues).
+        if (role == Roles.Agente.ToString())
+        {
+            return RedirectToAction("Index", "Agent");
+        }
+
+        // Cliente: su home es el catálogo con favoritas.
         return RedirectToAction("Index", "Home");
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateApp.Core.Application.Enums;
 using RealEstateApp.Core.Application.Interfaces.Services;
@@ -6,7 +7,7 @@ using RealEstateApp.Core.Application.ViewModels.Admin;
 
 namespace RealEstateApp.Presentation.WebApp.Controllers;
 
-// [Authorize(Roles = "Administrador")]
+[Authorize(Roles = "Administrador")]
 public class DevelopersController : Controller
 {
     private readonly IAdminService _adminService;
