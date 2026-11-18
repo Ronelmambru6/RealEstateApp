@@ -107,6 +107,8 @@
                     </a>
                 }
             </div>
+
+            @await Component.InvokeAsync("PropertyChat", new { propertyId = Model.Id })
         </div>
     </div>
 </div>

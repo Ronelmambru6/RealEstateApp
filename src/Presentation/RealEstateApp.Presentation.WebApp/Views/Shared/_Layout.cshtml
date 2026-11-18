@@ -45,6 +45,12 @@
                                     <a class="nav-link text-dark" asp-controller="Improvement" asp-action="Index">Mejoras</a>
                                 </li>
                             }
+                            @if (User.IsInRole("Agente"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Chat" asp-action="Inbox">Mensajes</a>
+                                </li>
+                            }
                             @if (User.IsInRole("Cliente"))
                             {
                                 <li class="nav-item">

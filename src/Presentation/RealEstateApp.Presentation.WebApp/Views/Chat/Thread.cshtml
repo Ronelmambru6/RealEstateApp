@@ -1,0 +1,31 @@
+@model RealEstateApp.Core.Application.ViewModels.Chat.ChatThreadViewModel
+@{
+    ViewData["Title"] = $"Conversación con {Model.ClientName}";
+}
+
+<div class="row justify-content-center py-4">
+    <div class="col-md-8">
+        <a asp-action="Inbox" class="btn btn-sm btn-outline-secondary mb-3">← Volver a mensajes</a>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h4 class="fw-bold mb-1">@Model.ClientName</h4>
+            <p class="text-muted small">Propiedad <a asp-controller="Home" asp-action="Details" asp-route-id="@Model.PropertyId">@Model.PropertyCode</a></p>
+
+            @if (TempData["ChatError"] is string chatError)
+            {
+                <div class="alert alert-danger py-2">@chatError</div>
+            }
+
+            <partial name="_ChatMessages" model="Model" />
+
+            <form asp-action="Reply" method="post">
+                <input type="hidden" name="PropertyId" value="@Model.PropertyId" />
+                <input type="hidden" name="ClientId" value="@Model.ClientId" />
+                <div class="mb-2">
+                    <textarea name="Content" class="form-control" rows="3" maxlength="1000" placeholder="Escribe tu respuesta..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Responder</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+@model RealEstateApp.Core.Application.ViewModels.Chat.ChatThreadViewModel
+
+<div id="chat" class="card border-0 shadow-sm p-4 mb-4">
+    <h5 class="fw-bold mb-3">💬 Chat con el agente</h5>
+    <p class="text-muted small">Escríbele a @Model.AgentName sobre esta propiedad.</p>
+
+    @if (TempData["ChatError"] is string chatError)
+    {
+        <div class="alert alert-danger py-2">@chatError</div>
+    }
+
+    <partial name="_ChatMessages" model="Model" />
+
+    <form asp-controller="Chat" asp-action="Send" method="post">
+        <input type="hidden" name="PropertyId" value="@Model.PropertyId" />
+        <div class="mb-2">
+            <textarea name="Content" class="form-control" rows="3" maxlength="1000" placeholder="Escribe tu mensaje..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Enviar mensaje</button>
+    </form>
+</div>
