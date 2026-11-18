@@ -35,6 +35,7 @@ public static class ServiceRegistration
         services.AddTransient<ICatalogMaintenanceService, CatalogMaintenanceService>();
         services.AddTransient<IHomeService, HomeService>();
         services.AddTransient<IFavoriteService, FavoriteService>();
+        services.AddTransient<IChatService, ChatService>();
 
         services.AddTransient<IAgentDashboardService, AgentDashboardService>();
         services.AddTransient<IPropertyManagementService, PropertyManagementService>();

@@ -1,0 +1,43 @@
+@model List<RealEstateApp.Core.Application.ViewModels.Chat.ChatConversationViewModel>
+@{
+    ViewData["Title"] = "Mensajes";
+}
+
+<div class="container py-4">
+    <div class="mb-4">
+        <h2 class="fw-bold mb-0">Mensajes</h2>
+        <p class="text-muted">Clientes que te han escrito sobre tus propiedades.</p>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">Aún no tienes conversaciones.</div>
+    }
+    else
+    {
+        <div class="list-group shadow-sm">
+            @foreach (var item in Model)
+            {
+                <a asp-action="Thread" asp-route-propertyId="@item.PropertyId" asp-route-clientId="@item.ClientId"
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="fw-bold mb-1">@item.ClientName <span class="badge bg-secondary ms-1">Propiedad @item.PropertyCode</span></h6>
+                            <p class="mb-0 text-muted small text-truncate" style="max-width: 600px;">
+                                @(item.LastMessageFromAgent ? "Tú: " : "")@item.LastMessage
+                            </p>
+                        </div>
+                        <div class="text-end small text-muted">
+                            <div>@item.LastMessageAt.ToLocalTime().ToString("dd/MM/yyyy hh:mm tt")</div>
+                            <div>@item.MessageCount mensaje(s)</div>
+                            @if (!item.LastMessageFromAgent)
+                            {
+                                <span class="badge bg-warning text-dark">Sin responder</span>
+                            }
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>
