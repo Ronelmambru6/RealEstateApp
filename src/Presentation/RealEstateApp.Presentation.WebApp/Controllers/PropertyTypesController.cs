@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealEstateApp.Core.Application.Interfaces.Services;
 using RealEstateApp.Core.Application.ViewModels.Admin;
 
 namespace RealEstateApp.Presentation.WebApp.Controllers;
 
-// [Authorize(Roles = "Administrador")]
+[Authorize(Roles = "Administrador")]
 public class PropertyTypesController : Controller
 {
     private readonly ICatalogMaintenanceService _catalogService;
