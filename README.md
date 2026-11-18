@@ -7,7 +7,7 @@ Aplicación inmobiliaria desarrollada en **.NET 9** con **Onion Architecture**: 
 | Rol | GitHub | Matrícula |
 | :--- | :--- | :--- |
 | Dev A | [@IbnFrias](https://github.com/IbnFrias) | 2024-2504 |
-| Dev B | [@Ronelmambru6](https://github.com/Ronelmambru6) | 2024-2438 
+| Dev B | [@Ronelmambru6](https://github.com/Ronelmambru6) | 2024-2438 |
 ## Arquitectura
 
 ```
