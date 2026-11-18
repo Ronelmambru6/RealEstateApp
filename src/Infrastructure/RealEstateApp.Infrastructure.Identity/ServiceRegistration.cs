@@ -125,5 +125,6 @@ public static class ServiceRegistration
         services.AddTransient<IAdminService, AdminService>();
         services.AddTransient<IPublicAgentService, PublicAgentService>();
         services.AddTransient<IApiAccountService, ApiAccountService>();
+        services.AddTransient<IApiAgentService, ApiAgentService>();
     }
 }
